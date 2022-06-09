@@ -11,6 +11,9 @@ namespace Week1
             // Initialize the settings
             bool gameOver = false;
             string gameOverMessage = "Game not yet over";
+            bool squareFilled = false;
+            bool changePlayer = true;
+            bool won = false;
 
 
             // Initialize the board
@@ -29,25 +32,33 @@ namespace Week1
             // Start the game
             do
             {
+                
+                
                 // Draw the board
+                Console.WriteLine();
                 Console.WriteLine($"{squares[0]}|{squares[1]}|{squares[2]}");
                 Console.WriteLine("-+-+-");
                 Console.WriteLine($"{squares[3]}|{squares[4]}|{squares[5]}");
                 Console.WriteLine("-+-+-");
                 Console.WriteLine($"{squares[6]}|{squares[7]}|{squares[8]}");
+                Console.WriteLine();
 
 
 
 
                 // Switch player
-                if (player == "X")
+                if (changePlayer)
                 {
-                    player = "O";
+                    if (player == "X")
+                    {
+                        player = "O";
+                    }
+                    else
+                    {
+                        player = "X";
+                    }
                 }
-                else
-                {
-                    player = "X";
-                }
+                
 
 
                 // Create win state
@@ -58,14 +69,27 @@ namespace Week1
 
 
                 // Create tie state
-                foreach (string square in squares)
+                if (!(won))
                 {
-                    if (square == "X" | square == "O")
+                    do
                     {
-                        gameOver = true;
-                        gameOverMessage = "Game over. It's a draw!";
-                    }
+                        int i = 0;
+                        if (i <= 8)
+                        {
+                            if (!(squares[i] == "X" | squares[i] == "O"))
+                            {
+                                squareFilled = false;
+                            }
+                            i += 1;
+                        }
+                        else
+                        {
+                            gameOverMessage = "Game over. It was a draw!";
+                        }
+                        
+                    } while (squareFilled);
                 }
+                
 
 
                 // If the game isn't over...
@@ -78,8 +102,17 @@ namespace Week1
                     int chosenSquare = int.Parse(userChoice);
 
 
-                    // 
-
+                    // Update the board
+                    if (squares[chosenSquare - 1] == "X" | squares[chosenSquare - 1] == "O")
+                    {
+                        Console.WriteLine("That square is taken already. Choose again.");
+                        changePlayer = false;
+                    }
+                    else
+                    {
+                        squares[chosenSquare - 1] = player;
+                        changePlayer = true;
+                    }
 
                 }
                 
