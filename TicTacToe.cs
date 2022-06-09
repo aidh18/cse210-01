@@ -27,13 +27,12 @@ namespace Week1
 
 
             // Initialize the player
-            string player = "O";
+            string player = "X";
 
 
             // Start the game
             do
             {
-                
                 
                 // Draw the board
                 Console.WriteLine();
@@ -45,36 +44,85 @@ namespace Week1
                 Console.WriteLine();
 
 
-
-
-                // Switch player
-                if (changePlayer)
+                // Create win state if the game is not already over
+                if (!(gameOver))
                 {
-                    if (player == "X")
+
+                    // Check 1st row
+                    if ((squares[0] == squares[1]) & (squares[1] == squares[2]))
                     {
-                        player = "O";
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
                     }
-                    else
+
+                    // Check 2nd row
+                    else if ((squares[3] == squares[4]) & (squares[4] == squares[5]))
                     {
-                        player = "X";
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
                     }
+
+                    // Check 3rd row
+                    else if ((squares[6] == squares[7]) & (squares[7] == squares[8]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
+                    // Check 1st column
+                    else if ((squares[0] == squares[3]) & (squares[3] == squares[6]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
+                    // Check 2nd column
+                    else if ((squares[1] == squares[4]) & (squares[4] == squares[7]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
+                    // Check 3rd column
+                    else if ((squares[2] == squares[5]) & (squares[5] == squares[8]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
+                    // Check top left to bottom right diagonal
+                    else if ((squares[0] == squares[4]) & (squares[4] == squares[8]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
+                    // Check bottom left to top right diagonal
+                    else if ((squares[6] == squares[4]) & (squares[4] == squares[2]))
+                    {
+                        gameOver = true;
+                        gameOverMessage = $"{player} wins!";
+                        changePlayer = false;
+                    }
+
                 }
-                
 
 
-                // Create win state
-
-
-
-
-
-
-                // Create tie state
+                // Create tie state if game is not already over
                 if (!(gameOver))
                 {
                     int i = 0;
                     do
                     {
+                        // Iterates through each square on the board until it finds
+                        // an empty space.
                         if (i <= 8)
                         {
                             if (squares[i] == "X" | squares[i] == "O")
@@ -83,6 +131,8 @@ namespace Week1
                                 hasEmptySquare = false;
                                 continueLoop = true;
                             }
+                            // If there is an empty space, the game can continue 
+                            // for at least one more turn.
                             else
                             {
                                 hasEmptySquare = true;
@@ -90,6 +140,9 @@ namespace Week1
                                 continueLoop = false;
                             }
                         }
+                        // If there are no empty squares and it has iterated through
+                        // each square already, end the game and return a "tied"
+                        // message. 
                         else
                         {
                             boardFilled = true;
@@ -103,10 +156,23 @@ namespace Week1
                 }
                 
 
-
-                // If the game isn't over...
+                // If the game isn't over, new turn!
                 if (!(gameOver))
                 {
+
+                    // Switch player
+                    if (changePlayer)
+                    {
+                        if (player == "X")
+                        {
+                            player = "O";
+                        }
+                        else
+                        {
+                            player = "X";
+                        }
+                    }
+
 
                     // Display player turn and get user choice
                     Console.Write($"{player}'s turn to choose a square (1-9): ");
@@ -128,14 +194,12 @@ namespace Week1
 
                 }
                 
-
             } while (!(gameOver));
+
 
             Console.WriteLine(gameOverMessage);
 
             
-
-
         }
     }
 }
