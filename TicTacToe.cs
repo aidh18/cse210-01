@@ -11,9 +11,10 @@ namespace Week1
             // Initialize the settings
             bool gameOver = false;
             string gameOverMessage = "Game not yet over";
-            bool squareFilled = false;
+            bool boardFilled = false;
             bool changePlayer = true;
-            bool won = false;
+            bool hasEmptySquare = true;
+            bool continueLoop = true;
 
 
             // Initialize the board
@@ -26,7 +27,7 @@ namespace Week1
 
 
             // Initialize the player
-            string player = "X";
+            string player = "O";
 
 
             // Start the game
@@ -69,25 +70,36 @@ namespace Week1
 
 
                 // Create tie state
-                if (!(won))
+                if (!(gameOver))
                 {
+                    int i = 0;
                     do
                     {
-                        int i = 0;
                         if (i <= 8)
                         {
-                            if (!(squares[i] == "X" | squares[i] == "O"))
+                            if (squares[i] == "X" | squares[i] == "O")
                             {
-                                squareFilled = false;
+                                i += 1;
+                                hasEmptySquare = false;
+                                continueLoop = true;
                             }
-                            i += 1;
+                            else
+                            {
+                                hasEmptySquare = true;
+                                boardFilled = false;
+                                continueLoop = false;
+                            }
                         }
                         else
                         {
+                            boardFilled = true;
+                            hasEmptySquare = false;
+                            gameOver = true;
                             gameOverMessage = "Game over. It was a draw!";
+                            continueLoop = false;
                         }
                         
-                    } while (squareFilled);
+                    } while (continueLoop);
                 }
                 
 
