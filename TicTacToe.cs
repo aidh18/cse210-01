@@ -1,4 +1,14 @@
-﻿using System;
+﻿// PROGRAM:
+// TIC TAC TOE
+//
+// AUTHORS:
+// AIDAN STACEY
+// STETSON
+// ANDREW
+// JOSH
+
+
+using System;
 using System.Collections.Generic;
 
 namespace Week1
